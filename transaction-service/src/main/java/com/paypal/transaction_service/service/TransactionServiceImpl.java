@@ -1,6 +1,5 @@
 package com.paypal.transaction_service.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paypal.transaction_service.dto.TransactionRequest;
 import com.paypal.transaction_service.entity.Transaction;
@@ -31,11 +30,11 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction saved = repo.save(transaction);
 
         try{
-            String payload = objectMapper.writeValueAsString(saved);
             String key = String.valueOf(saved.getId());
-            kafkaEventProducer.sendTransactionEvent(key, payload);
+            String messageJson = objectMapper.writeValueAsString(saved);
+            kafkaEventProducer.sendTransactionEvent(key, messageJson);
             System.out.println("Kafka message sent.");
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             System.out.println("Failed to send Kafka event: "+e.getMessage());
         }
         return saved;

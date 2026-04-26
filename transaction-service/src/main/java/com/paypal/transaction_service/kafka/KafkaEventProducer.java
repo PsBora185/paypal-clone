@@ -2,6 +2,7 @@ package com.paypal.transaction_service.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+// ...existing code...
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -18,9 +19,9 @@ public class KafkaEventProducer {
 
     private final ObjectMapper mapper;
 
-    public KafkaEventProducer(KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
+    public KafkaEventProducer(KafkaTemplate<String, String> kafkaTemplate, ObjectMapper mapper) {
         this.kafkaTemplate = kafkaTemplate;
-        this.mapper = objectMapper;
+        this.mapper = mapper;
 
         this.mapper.registerModule(new JavaTimeModule());
     }
