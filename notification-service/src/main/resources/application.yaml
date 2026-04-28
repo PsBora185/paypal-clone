@@ -23,18 +23,18 @@ spring:
       bootstrap-servers: localhost:9092
       group-id: notification-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: "*"
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  properties:
+    spring:
+      json:
+        trusted:
+          packages: "*"
   security:
     user:
       name: user
       password: password
 
 server:
-  port: 8084
+  port: 8082
   servlet:
     context-path: /api
